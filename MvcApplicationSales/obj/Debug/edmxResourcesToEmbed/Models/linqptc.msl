@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="linqptcModelStoreContainer" CdmEntityContainer="linqptcEntities">
+    <EntitySetMapping Name="Items">
+      <EntityTypeMapping TypeName="linqptcModel.Item">
+        <MappingFragment StoreEntitySet="Item">
+          <ScalarProperty Name="item_id" ColumnName="item_id" />
+          <ScalarProperty Name="title" ColumnName="title" />
+          <ScalarProperty Name="amount" ColumnName="amount" />
+          <ScalarProperty Name="order_id" ColumnName="order_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Orders">
+      <EntityTypeMapping TypeName="linqptcModel.Order">
+        <MappingFragment StoreEntitySet="Order">
+          <ScalarProperty Name="order_id" ColumnName="order_id" />
+          <ScalarProperty Name="customer_name" ColumnName="customer_name" />
+          <ScalarProperty Name="city" ColumnName="city" />
+          <ScalarProperty Name="code" ColumnName="code" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Salesmen">
+      <EntityTypeMapping TypeName="linqptcModel.Salesman">
+        <MappingFragment StoreEntitySet="Salesmen">
+          <ScalarProperty Name="salesman_id" ColumnName="salesman_id" />
+          <ScalarProperty Name="salesman_name" ColumnName="salesman_name" />
+          <ScalarProperty Name="city" ColumnName="city" />
+          <ScalarProperty Name="code" ColumnName="code" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

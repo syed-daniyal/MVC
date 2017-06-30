@@ -1,0 +1,178 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="linqptcModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="linqptcModelStoreContainer">
+          <EntitySet Name="Item" EntityType="linqptcModel.Store.Item" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Order" EntityType="linqptcModel.Store.Order" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Salesmen" EntityType="linqptcModel.Store.Salesmen" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_Item_Item" Association="linqptcModel.Store.FK_Item_Item">
+            <End Role="Order" EntitySet="Order" />
+            <End Role="Item" EntitySet="Item" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Item">
+          <Key>
+            <PropertyRef Name="item_id" />
+          </Key>
+          <Property Name="item_id" Type="int" Nullable="false" />
+          <Property Name="title" Type="varchar" MaxLength="50" />
+          <Property Name="amount" Type="varchar" MaxLength="50" />
+          <Property Name="order_id" Type="int" />
+        </EntityType>
+        <EntityType Name="Order">
+          <Key>
+            <PropertyRef Name="order_id" />
+          </Key>
+          <Property Name="order_id" Type="int" Nullable="false" />
+          <Property Name="customer_name" Type="varchar" MaxLength="50" />
+          <Property Name="city" Type="varchar" MaxLength="50" />
+          <Property Name="code" Type="int" />
+        </EntityType>
+        <EntityType Name="Salesmen">
+          <Key>
+            <PropertyRef Name="salesman_id" />
+          </Key>
+          <Property Name="salesman_id" Type="int" Nullable="false" />
+          <Property Name="salesman_name" Type="varchar" MaxLength="50" />
+          <Property Name="city" Type="varchar" MaxLength="50" />
+          <Property Name="code" Type="int" />
+        </EntityType>
+        <Association Name="FK_Item_Item">
+          <End Role="Order" Type="linqptcModel.Store.Order" Multiplicity="0..1" />
+          <End Role="Item" Type="linqptcModel.Store.Item" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Order">
+              <PropertyRef Name="order_id" />
+            </Principal>
+            <Dependent Role="Item">
+              <PropertyRef Name="order_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="linqptcModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="linqptcEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Items" EntityType="linqptcModel.Item" />
+          <EntitySet Name="Orders" EntityType="linqptcModel.Order" />
+          <EntitySet Name="Salesmen" EntityType="linqptcModel.Salesman" />
+          <AssociationSet Name="FK_Item_Item" Association="linqptcModel.FK_Item_Item">
+            <End Role="Order" EntitySet="Orders" />
+            <End Role="Item" EntitySet="Items" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Item">
+          <Key>
+            <PropertyRef Name="item_id" />
+          </Key>
+          <Property Name="item_id" Type="Int32" Nullable="false" />
+          <Property Name="title" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="amount" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="order_id" Type="Int32" />
+          <NavigationProperty Name="Order" Relationship="linqptcModel.FK_Item_Item" FromRole="Item" ToRole="Order" />
+        </EntityType>
+        <EntityType Name="Order">
+          <Key>
+            <PropertyRef Name="order_id" />
+          </Key>
+          <Property Name="order_id" Type="Int32" Nullable="false" />
+          <Property Name="customer_name" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="city" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="code" Type="Int32" />
+          <NavigationProperty Name="Items" Relationship="linqptcModel.FK_Item_Item" FromRole="Order" ToRole="Item" />
+        </EntityType>
+        <EntityType Name="Salesman">
+          <Key>
+            <PropertyRef Name="salesman_id" />
+          </Key>
+          <Property Name="salesman_id" Type="Int32" Nullable="false" />
+          <Property Name="salesman_name" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="city" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="code" Type="Int32" />
+        </EntityType>
+        <Association Name="FK_Item_Item">
+          <End Role="Order" Type="linqptcModel.Order" Multiplicity="0..1" />
+          <End Role="Item" Type="linqptcModel.Item" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Order">
+              <PropertyRef Name="order_id" />
+            </Principal>
+            <Dependent Role="Item">
+              <PropertyRef Name="order_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="linqptcModelStoreContainer" CdmEntityContainer="linqptcEntities">
+          <EntitySetMapping Name="Items">
+            <EntityTypeMapping TypeName="linqptcModel.Item">
+              <MappingFragment StoreEntitySet="Item">
+                <ScalarProperty Name="item_id" ColumnName="item_id" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="amount" ColumnName="amount" />
+                <ScalarProperty Name="order_id" ColumnName="order_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Orders">
+            <EntityTypeMapping TypeName="linqptcModel.Order">
+              <MappingFragment StoreEntitySet="Order">
+                <ScalarProperty Name="order_id" ColumnName="order_id" />
+                <ScalarProperty Name="customer_name" ColumnName="customer_name" />
+                <ScalarProperty Name="city" ColumnName="city" />
+                <ScalarProperty Name="code" ColumnName="code" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Salesmen">
+            <EntityTypeMapping TypeName="linqptcModel.Salesman">
+              <MappingFragment StoreEntitySet="Salesmen">
+                <ScalarProperty Name="salesman_id" ColumnName="salesman_id" />
+                <ScalarProperty Name="salesman_name" ColumnName="salesman_name" />
+                <ScalarProperty Name="city" ColumnName="city" />
+                <ScalarProperty Name="code" ColumnName="code" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams>
+      <Diagram Name="linqptc">
+        <EntityTypeShape EntityType="linqptcModel.Item" Width="1.5" PointX="3" PointY="0.875" Height="1.9802864583333335" IsExpanded="true" />
+        <EntityTypeShape EntityType="linqptcModel.Order" Width="1.5" PointX="0.75" PointY="0.875" Height="1.9802864583333335" IsExpanded="true" />
+        <EntityTypeShape EntityType="linqptcModel.Salesman" Width="1.5" PointX="0.75" PointY="3.75" Height="1.787985026041667" IsExpanded="true" />
+        <AssociationConnector Association="linqptcModel.FK_Item_Item" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.25" PointY="1.8651432291666668" />
+          <ConnectorPoint PointX="3" PointY="1.8651432291666668" />
+        </AssociationConnector>
+      </Diagram>
+    </Diagrams>
+  </Designer>
+</edmx:Edmx>
